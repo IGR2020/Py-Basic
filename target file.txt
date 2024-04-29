@@ -1,0 +1,8 @@
+load assets 
+
+while run 
+
+    show smile.jpeg at 100 100
+    refresh
+
+end
