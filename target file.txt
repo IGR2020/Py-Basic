@@ -1,8 +1,16 @@
-load assets 
+load assets
+
+name = "Bob"
+
+window name = name
 
 while run 
 
     show smile.jpeg at 100 100
     refresh
+
+    text colour = (90, 10, 30)
+    show name at 400 200
+    show is this good at 400 250
 
 end
