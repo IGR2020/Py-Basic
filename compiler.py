@@ -1,3 +1,19 @@
+# usefull functions
+def is_int(string: str) -> bool:
+    if len(string) == 1:
+        return string.isdigit()
+    if string[0] == "-":
+        return string[1:].isdigit()
+    return string.isdigit()
+
+def is_float(string: str) -> bool:
+    string = string.replace(".", "", 1)
+    if len(string) == 1:
+        return string.isdigit()
+    if string[0] == "-":
+        return string[1:].isdigit()
+    return string.isdigit()
+
 # extracting data
 with open("target file.txt", "r") as file:
     code = file.read().splitlines()
@@ -105,10 +121,18 @@ for line, indent in zip(code, indent_map):
 
         else:
 
-            file.write(indent+" ".join(line) + "\n")
-
             if "=" in line:
+                
                 vars_defined.append(word)
+
+                if not is_float(" ".join(line[2:])) and not "(" in " ".join(line[2:]) and not ")" in " ".join(line[2:]):
+                    file.write(indent+line[0]+line[1]+f"'{' '.join(line[2:])}'\n")
+
+                else:
+                    file.write(indent + " ".join(line) + "\n")
+
+            else:
+                file.write(indent+ " ".join(line) + "\n")
 
             skip_counter = len(line)
 
