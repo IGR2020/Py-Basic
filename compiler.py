@@ -125,14 +125,7 @@ for line, indent in zip(code, indent_map):
                 
                 vars_defined.append(word)
 
-                if not is_float(" ".join(line[2:])) and not "(" in " ".join(line[2:]) and not ")" in " ".join(line[2:]):
-                    file.write(indent+line[0]+line[1]+f"'{' '.join(line[2:])}'\n")
-
-                else:
-                    file.write(indent + " ".join(line) + "\n")
-
-            else:
-                file.write(indent+ " ".join(line) + "\n")
+            file.write(indent+ " ".join(line) + "\n")
 
             skip_counter = len(line)
 
