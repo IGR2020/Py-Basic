@@ -69,22 +69,25 @@ for line, indent in zip(code, indent_map):
 
         elif word == "show":
 
+            at_index = line.index("at")
+
             if "." in line[i+1]:
                 file.write(indent+
-                f"window.blit(assets['{line[i+1]}'], ({line[-2]}, {line[-1]}))\n"
+                f"window.blit(assets['{line[i+1]}'], ({line[at_index+1]}, {line[at_index+2]}))\n"
             )
                 
             else:
 
-                if " ".join(line[i+1:-3]) in vars_defined:
-                    file.write(indent+
-                    f"EPT.blit_text(window, {" ".join(line[i+1:-3])}, pos=({line[-2]}, {line[-1]}), colour=text_colour)\n"
-                )
+                try:
+                    colour_index = line.index("colour")
+                    colour = (int(line[colour_index+1]), int(line[colour_index+2]), int(line[colour_index+3]))
+                
+                except ValueError:
+                    colour = 'text_colour'
 
-                else:
-                    file.write(indent+
-                        f"EPT.blit_text(window, '{" ".join(line[i+1:-3])}', pos=({line[-2]}, {line[-1]}), colour=text_colour)\n"
-                    )
+                file.write(indent+
+                    f"EPT.blit_text(window, '{" ".join(line[i+1:-3])}', pos=({line[at_index+1]}, {line[at_index+2]}), colour={colour})\n"
+                )
 
             skip_counter = len(line)
 
@@ -122,7 +125,7 @@ for line, indent in zip(code, indent_map):
         else:
 
             if "=" in line:
-                
+
                 vars_defined.append(word)
 
             file.write(indent+ " ".join(line) + "\n")
@@ -130,3 +133,8 @@ for line, indent in zip(code, indent_map):
             skip_counter = len(line)
 
     skip_counter = 0
+
+file.close()
+
+import output
+quit()

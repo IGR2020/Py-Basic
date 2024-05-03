@@ -5,26 +5,13 @@ name = "Bob"
 window name = Py-Basic
 
 x, y  = (100, 100)
-m = 1
-v = 1.02
-a = 1.001
 
 while run 
 
     show smile.jpeg at x y
+    
     refresh
 
-    if window_width < x
-        m = -1
-
-    if 0 > x
-        m = 1
-
-    m *= v
-    v *= a
- 
-    x += m
-
-    text colour = (90, 10, 30)
+    show hello world at 400 200
 
 end
